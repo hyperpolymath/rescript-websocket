@@ -1,1 +1,12 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// SPDX-FileCopyrightText: 2025 Hyperpolymath
 
+= rescript-websocket
+
+**Type-safe WebSocket client and server for ReScript using Deno's native WebSocket API.**
+
+Part of the https://github.com/hyperpolymath/rescript-full-stack[ReScript Full Stack] ecosystem.
+
+== Licence
+
+AGPL-3.0-or-later
