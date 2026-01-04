@@ -1,5 +1,5 @@
 ;; SPDX-License-Identifier: AGPL-3.0-or-later
-;; AGENTIC.scm - AI agent interaction patterns for rsr-template-repo
+;; AGENTIC.scm - AI agent interaction patterns for rescript-websocket
 
 (define agentic-config
   `((version . "1.0.0")
@@ -12,5 +12,6 @@
        (refactoring . "conservative")
        (testing . "comprehensive")))
     (constraints
-      ((languages . ())
-       (banned . ("typescript" "go" "python" "makefile"))))))
+      ((languages . ("rescript" "bash"))
+       (banned . ("typescript" "go" "python" "node" "npm" "bun"))
+       (runtime . "deno-only")))))
