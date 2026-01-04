@@ -1,8 +1,5 @@
-# RSR-template-repo - RSR Standard Justfile Template
+# rescript-websocket - Type-safe WebSocket for ReScript
 # https://just.systems/man/en/
-#
-# This is the CANONICAL template for all RSR projects.
-# Copy this file to new projects and customize the {{PLACEHOLDER}} values.
 #
 # Run `just` to see all available recipes
 # Run `just cookbook` to generate docs/just-cookbook.adoc
@@ -12,10 +9,10 @@ set shell := ["bash", "-uc"]
 set dotenv-load := true
 set positional-arguments := true
 
-# Project metadata - CUSTOMIZE THESE
-project := "RSR-template-repo"
+# Project metadata
+project := "rescript-websocket"
 version := "0.1.0"
-tier := "infrastructure"  # 1 | 2 | infrastructure
+tier := "2"  # Library tier
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DEFAULT & HELP
@@ -53,28 +50,26 @@ info:
 # Build the project (debug mode)
 build *args:
     @echo "Building {{project}}..."
-    # TODO: Add build command for your language
-    # Rust: cargo build {{args}}
-    # ReScript: npm run build
-    # Elixir: mix compile
+    deno task build
 
 # Build in release mode with optimizations
 build-release *args:
     @echo "Building {{project}} (release)..."
-    # TODO: Add release build command
-    # Rust: cargo build --release {{args}}
+    deno task build
 
 # Build and watch for changes
 build-watch:
     @echo "Watching for changes..."
-    # TODO: Add watch command
-    # Rust: cargo watch -x build
-    # ReScript: npm run watch
+    deno task dev
+
+# Alias for build-watch
+dev: build-watch
 
 # Clean build artifacts [reversible: rebuild with `just build`]
 clean:
     @echo "Cleaning..."
-    rm -rf target _build dist lib node_modules
+    deno task clean
+    rm -rf lib node_modules
 
 # Deep clean including caches [reversible: rebuild]
 clean-all: clean
@@ -87,21 +82,23 @@ clean-all: clean
 # Run all tests
 test *args:
     @echo "Running tests..."
-    # TODO: Add test command
-    # Rust: cargo test {{args}}
-    # ReScript: npm test
-    # Elixir: mix test
+    deno test --allow-net {{args}}
 
 # Run tests with verbose output
 test-verbose:
     @echo "Running tests (verbose)..."
-    # TODO: Add verbose test
+    deno test --allow-net --trace-leaks
 
 # Run tests and generate coverage report
 test-coverage:
     @echo "Running tests with coverage..."
-    # TODO: Add coverage command
-    # Rust: cargo llvm-cov
+    deno test --allow-net --coverage=coverage/
+    deno coverage coverage/
+
+# Watch tests
+test-watch:
+    @echo "Watching tests..."
+    deno test --allow-net --watch
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # LINT & FORMAT
@@ -110,22 +107,17 @@ test-coverage:
 # Format all source files [reversible: git checkout]
 fmt:
     @echo "Formatting..."
-    # TODO: Add format command
-    # Rust: cargo fmt
-    # ReScript: npm run format
-    # Elixir: mix format
+    deno fmt src/ examples/
 
 # Check formatting without changes
 fmt-check:
     @echo "Checking format..."
-    # TODO: Add format check
-    # Rust: cargo fmt --check
+    deno fmt --check src/ examples/
 
 # Run linter
 lint:
     @echo "Linting..."
-    # TODO: Add lint command
-    # Rust: cargo clippy -- -D warnings
+    deno lint src/ examples/
 
 # Run all quality checks
 quality: fmt-check lint test
@@ -139,23 +131,20 @@ fix: fmt
 # RUN & EXECUTE
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# Run the application
-run *args:
-    @echo "Running {{project}}..."
-    # TODO: Add run command
-    # Rust: cargo run {{args}}
+# Run the echo client example
+run-echo:
+    @echo "Running echo client example..."
+    deno run --allow-net examples/echo_client.res.js
 
-# Run in development mode with hot reload
-dev:
-    @echo "Starting dev mode..."
-    # TODO: Add dev command
+# Run the chat server example
+run-chat:
+    @echo "Running chat server example..."
+    deno run --allow-net examples/chat_server.res.js
 
 # Run REPL/interactive mode
 repl:
-    @echo "Starting REPL..."
-    # TODO: Add REPL command
-    # Elixir: iex -S mix
-    # Guile: guix shell guile -- guile
+    @echo "Starting Deno REPL..."
+    deno repl
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DEPENDENCIES
@@ -164,16 +153,12 @@ repl:
 # Install all dependencies
 deps:
     @echo "Installing dependencies..."
-    # TODO: Add deps command
-    # Rust: (automatic with cargo)
-    # ReScript: npm install
-    # Elixir: mix deps.get
+    deno install
 
 # Audit dependencies for vulnerabilities
 deps-audit:
     @echo "Auditing dependencies..."
-    # TODO: Add audit command
-    # Rust: cargo audit
+    deno info
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DOCUMENTATION
