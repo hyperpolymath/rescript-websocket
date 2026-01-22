@@ -12,7 +12,7 @@ image:[License,link="https://github.com/hyperpolymath/palimpsest-license"]
 
 image:https://img.shields.io/badge/ReScript-v11-blue[ReScript v11]
 image:https://img.shields.io/badge/Deno-2.x-black[Deno 2.x]
-image:https://img.shields.io/badge/license-AGPL--3.0--or--later-blue[License: AGPL-3.0-or-later]
+image:https://img.shields.io/badge/license-AGPL--3.0--or--later-blue[License: PMPL-1.0-or-later]
 
 **Type-safe WebSocket client and server bindings for ReScript using Deno's native WebSocket API.**
 
@@ -459,11 +459,11 @@ See link:CONTRIBUTING.adoc[CONTRIBUTING.adoc] for guidelines.
 
 == Licence
 
-AGPL-3.0-or-later
+PMPL-1.0-or-later
 
 Copyright (C) 2025 Hyperpolymath
 
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+This program is free software: you can redistribute it and/or modify it under the terms of the Palimpsest-MPL License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
 See link:LICENSE.txt[LICENSE.txt] for full text.
 
